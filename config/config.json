@@ -1,0 +1,11 @@
+{
+    "screenWidth": 800,
+    "screenHeight": 600,
+    "title": "雷霆爹斯",
+    "bgColor": {
+        "r": 230,
+        "g": 230,
+        "b": 230,
+        "a": 255
+    }
+}
