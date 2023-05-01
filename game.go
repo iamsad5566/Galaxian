@@ -15,7 +15,7 @@ type Game struct {
 }
 
 func (game *Game) Update() error {
-	game.keyPress.Update()
+	game.keyPress.Update(game.ship, game.config)
 	return nil
 }
 
@@ -32,10 +32,11 @@ func NewGame() *Game {
 	cfg := config.LoadConfig()
 	ebiten.SetWindowSize(cfg.ScreenWidth, cfg.ScreenHeight)
 	ebiten.SetWindowTitle(cfg.Title)
+	ebiten.SetTPS(cfg.FPS)
 
 	return &Game{
 		keyPress: &keypress.KeyPress{Msg: "Hello, World!"},
 		config:   cfg,
-		ship:     object.NewShip(),
+		ship:     object.NewShip(cfg.ScreenWidth, cfg.ScreenHeight),
 	}
 }
