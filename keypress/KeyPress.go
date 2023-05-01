@@ -3,15 +3,19 @@ package keypress
 import (
 	"gamedev/config"
 	"gamedev/object"
+	"time"
 
 	"github.com/hajimehoshi/ebiten/v2"
 )
 
 type KeyPress struct {
-	Msg string
+	Timer time.Timer
 }
 
-func (keyPress *KeyPress) Update(ship *object.Ship, config *config.Config) {
+func (keyPress *KeyPress) Update(ship *object.Ship, config *config.Config) (int, error) {
+	if ebiten.IsKeyPressed(ebiten.KeyEscape) {
+		return 0, ebiten.Termination
+	}
 	keyMap := make(map[ebiten.Key]bool)
 	if ebiten.IsKeyPressed(ebiten.KeyLeft) {
 		keyMap[ebiten.KeyLeft] = true
@@ -25,12 +29,19 @@ func (keyPress *KeyPress) Update(ship *object.Ship, config *config.Config) {
 	if ebiten.IsKeyPressed(ebiten.KeyDown) {
 		keyMap[ebiten.KeyDown] = true
 	}
+	if ebiten.IsKeyPressed(ebiten.KeySpace) {
+		if shoot := time.Now(); shoot.UnixMilli()-ship.LastShot.UnixMilli() > 100 {
+			ship.LastShot = shoot
+			return 1, nil
+		}
+	}
 	for k, v := range keyMap {
 		if v {
 			// goroutine here would induce wired shaking
 			move(k, ship, config)
 		}
 	}
+	return 0, nil
 }
 
 func move(key ebiten.Key, ship *object.Ship, config *config.Config) {

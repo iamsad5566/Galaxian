@@ -12,16 +12,19 @@ type Game struct {
 	keyPress *keypress.KeyPress
 	config   *config.Config
 	ship     *object.Ship
+	bullets  *object.Bullets
 }
 
 func (game *Game) Update() error {
-	game.keyPress.Update(game.ship, game.config)
-	return nil
+	event, err := game.keyPress.Update(game.ship, game.config)
+	game.bullets.Update(event, game.config, game.ship)
+	return err
 }
 
 func (game *Game) Draw(screen *ebiten.Image) {
 	screen.Fill(game.config.BgColor)
 	game.ship.Draw(screen, game.config)
+	game.bullets.Draw(screen, game.config)
 }
 
 func (game *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeight int) {
@@ -35,8 +38,11 @@ func NewGame() *Game {
 	ebiten.SetTPS(cfg.FPS)
 
 	return &Game{
-		keyPress: &keypress.KeyPress{Msg: "Hello, World!"},
+		keyPress: &keypress.KeyPress{},
 		config:   cfg,
 		ship:     object.NewShip(cfg.ScreenWidth, cfg.ScreenHeight),
+		bullets: &object.Bullets{
+			BulletList: make([]*object.Bullet, 0),
+		},
 	}
 }
