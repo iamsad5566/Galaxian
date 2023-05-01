@@ -32,7 +32,7 @@ func (bullets *Bullets) Update(event int, config *config.Config, ship *Ship) {
 			bullets.BulletList = bullets.BulletList[:i-1]
 			bullets.BulletList = append(bullets.BulletList, tmp...)
 		} else {
-			bullets.BulletList[i].Y -= config.ShipSpeedFactor
+			bullets.BulletList[i].Y -= config.BulletSpeedFactor
 		}
 	}
 }

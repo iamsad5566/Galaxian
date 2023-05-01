@@ -30,7 +30,7 @@ func (keyPress *KeyPress) Update(ship *object.Ship, config *config.Config) (int,
 		keyMap[ebiten.KeyDown] = true
 	}
 	if ebiten.IsKeyPressed(ebiten.KeySpace) {
-		if shoot := time.Now(); shoot.UnixMilli()-ship.LastShot.UnixMilli() > 100 {
+		if shoot := time.Now(); shoot.UnixMilli()-ship.LastShot.UnixMilli() > config.BulletCooling {
 			ship.LastShot = shoot
 			return 1, nil
 		}
