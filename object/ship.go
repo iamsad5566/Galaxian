@@ -38,7 +38,7 @@ func NewShip(screenWidth, screenHeight int) *Ship {
 		Width:    width,
 		Height:   height,
 		X:        float64(screenWidth-width) / 2,
-		Y:        float64(screenHeight - width),
+		Y:        float64(screenHeight - height),
 		LastShot: time.Now().Add(-1 * time.Minute),
 	}
 	return ship
