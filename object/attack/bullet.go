@@ -1,11 +1,13 @@
 package attack
 
 import (
-	"gamedev/config"
-
 	"github.com/hajimehoshi/ebiten/v2"
 )
 
-type bullet interface {
-	Draw(screen *ebiten.Image, config config.Config)
+type bullet struct {
+	image  *ebiten.Image
+	Width  int
+	Height int
+	X      float64
+	Y      float64
 }

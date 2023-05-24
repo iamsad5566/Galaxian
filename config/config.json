@@ -10,6 +10,6 @@
     },
     "shipSpeedFactor": 3,
     "bulletSpeedFactor":4,
-    "bulletCooling": 500,
+    "bulletCooling": 100,
     "fps": 120
 }

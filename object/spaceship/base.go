@@ -12,7 +12,7 @@ import (
 var LastShot time.Time = time.Now().Add(-3 * time.Minute)
 
 type Base struct {
-	appearence *ebiten.Image
+	appearance *ebiten.Image
 	Width      int
 	Height     int
 	PositionX  float64
@@ -24,7 +24,11 @@ var _ SpaceShip = (*Base)(nil)
 func (base *Base) Draw(screen *ebiten.Image) {
 	op := &ebiten.DrawImageOptions{}
 	op.GeoM.Translate(base.PositionX, base.PositionY)
-	screen.DrawImage(base.appearence, op)
+	screen.DrawImage(base.appearance, op)
+}
+
+func (base *Base) ChangeShip(appearance *ebiten.Image) {
+	base.appearance = appearance
 }
 
 func NewBaseShip(config config.Config) *Base {
@@ -34,7 +38,7 @@ func NewBaseShip(config config.Config) *Base {
 	}
 	width, height := img.Size()
 	return &Base{
-		appearence: img,
+		appearance: img,
 		Width:      width,
 		Height:     height,
 		PositionX:  float64(config.ScreenWidth-width) / 2,
