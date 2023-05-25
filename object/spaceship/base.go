@@ -31,12 +31,29 @@ func (base *Base) ChangeShip(appearance *ebiten.Image) {
 	base.appearance = appearance
 }
 
+func (base *Base) GetAxisX() float64 {
+	return base.PositionX
+}
+
+func (base *Base) GetAxisY() float64 {
+	return base.PositionY
+}
+
+func (base *Base) GetWidth() int {
+	return base.Width
+}
+
+func (base *Base) GetHeight() int {
+	return base.Height
+}
+
 func NewBaseShip(config config.Config) *Base {
 	img, _, err := ebitenutil.NewImageFromFile(prefix + "base.png")
 	if err != nil {
 		log.Fatal(err)
 	}
-	width, height := img.Size()
+	width := img.Bounds().Dx()
+	height := img.Bounds().Dy()
 	return &Base{
 		appearance: img,
 		Width:      width,

@@ -9,4 +9,8 @@ var prefix string = "./object/spaceship/"
 type SpaceShip interface {
 	Draw(screen *ebiten.Image)
 	ChangeShip(appearence *ebiten.Image)
+	GetAxisX() float64
+	GetAxisY() float64
+	GetWidth() int
+	GetHeight() int
 }
