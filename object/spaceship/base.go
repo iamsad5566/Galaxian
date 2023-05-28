@@ -47,7 +47,15 @@ func (base *Base) GetHeight() int {
 	return base.Height
 }
 
-func NewBaseShip(config config.Config) *Base {
+func (base *Base) SetAxisX(x float64) {
+	base.PositionX = x
+}
+
+func (base *Base) SetAxisY(y float64) {
+	base.PositionY = y
+}
+
+func NewBaseShip(config *config.Config) *Base {
 	img, _, err := ebitenutil.NewImageFromFile(prefix + "base.png")
 	if err != nil {
 		log.Fatal(err)

@@ -2,6 +2,7 @@ package object
 
 import (
 	"gamedev/config"
+	"gamedev/object/spaceship"
 	"gamedev/util"
 	"log"
 
@@ -21,8 +22,8 @@ type Bullet struct {
 	Y      float64
 }
 
-func (bullets *Bullets) Update(event int, config *config.Config, ship *Ship) {
-	if event == 1 {
+func (bullets *Bullets) Update(shot bool, config *config.Config, ship spaceship.SpaceShip) {
+	if shot {
 		bullets.BulletList = append(bullets.BulletList, NewBullet(ship))
 	}
 
@@ -49,7 +50,7 @@ func (bullet *Bullet) draw(screen *ebiten.Image, config *config.Config) {
 	screen.DrawImage(bullet.image, open)
 }
 
-func NewBullet(ship *Ship) *Bullet {
+func NewBullet(ship spaceship.SpaceShip) *Bullet {
 	img, _, err := ebitenutil.NewImageFromFile("./object/bullet.png")
 	if err != nil {
 		log.Fatal(err)
@@ -59,8 +60,8 @@ func NewBullet(ship *Ship) *Bullet {
 		image:  img,
 		Width:  width,
 		Height: height,
-		X:      ship.X + float64(ship.Width-width)/2,
-		Y:      ship.Y - 15,
+		X:      ship.GetAxisX() + float64(ship.GetWidth()-width)/2,
+		Y:      ship.GetAxisY() - 15,
 	}
 	return bullet
 }

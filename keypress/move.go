@@ -7,7 +7,7 @@ import (
 	"github.com/hajimehoshi/ebiten/v2"
 )
 
-func move(ship spaceship.SpaceShip, config *config.Config) error {
+func move(ship spaceship.SpaceShip, config *config.Config) {
 	keyMap := make(map[ebiten.Key]bool)
 	if ebiten.IsKeyPressed(ebiten.KeyLeft) {
 		keyMap[ebiten.KeyLeft] = true
@@ -27,30 +27,29 @@ func move(ship spaceship.SpaceShip, config *config.Config) error {
 			processMap(k, ship, config)
 		}
 	}
-	return nil
 }
 
 func processMap(key ebiten.Key, ship spaceship.SpaceShip, config *config.Config) {
 	switch key {
 	case ebiten.KeyLeft:
-		if ship.X <= 0 {
+		if ship.GetAxisX() <= 0 {
 			return
 		}
-		ship.X -= config.ShipSpeedFactor
+		ship.SetAxisX(ship.GetAxisX() - config.ShipSpeedFactor)
 	case ebiten.KeyRight:
-		if ship.X+float64(ship) >= float64(config.ScreenWidth) {
+		if ship.GetAxisX()+float64(ship.GetWidth()) >= float64(config.ScreenWidth) {
 			return
 		}
-		ship.X += config.ShipSpeedFactor
+		ship.SetAxisX(ship.GetAxisX() + config.ShipSpeedFactor)
 	case ebiten.KeyUp:
-		if ship.Y <= 0 {
+		if ship.GetAxisY() <= 0 {
 			return
 		}
-		ship.Y -= config.ShipSpeedFactor
+		ship.SetAxisY(ship.GetAxisY() - config.ShipSpeedFactor)
 	case ebiten.KeyDown:
-		if ship.Y+float64(ship.Height) >= float64(config.ScreenHeight) {
+		if ship.GetAxisY()+float64(ship.GetHeight()) >= float64(config.ScreenHeight) {
 			return
 		}
-		ship.Y += config.ShipSpeedFactor
+		ship.SetAxisY(ship.GetAxisY() + config.ShipSpeedFactor)
 	}
 }

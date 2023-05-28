@@ -4,6 +4,7 @@ import (
 	"gamedev/config"
 	"gamedev/keypress"
 	"gamedev/object"
+	"gamedev/object/spaceship"
 
 	"github.com/hajimehoshi/ebiten/v2"
 )
@@ -11,7 +12,7 @@ import (
 type Game struct {
 	keyPress *keypress.KeyPress
 	config   *config.Config
-	ship     *object.Ship
+	ship     spaceship.SpaceShip
 	bullets  *object.Bullets
 }
 
@@ -23,7 +24,7 @@ func (game *Game) Update() error {
 
 func (game *Game) Draw(screen *ebiten.Image) {
 	screen.Fill(game.config.BgColor)
-	game.ship.Draw(screen, game.config)
+	game.ship.Draw(screen)
 	game.bullets.Draw(screen, game.config)
 }
 
@@ -40,7 +41,7 @@ func NewGame() *Game {
 	return &Game{
 		keyPress: &keypress.KeyPress{},
 		config:   cfg,
-		ship:     object.NewShip(cfg.ScreenWidth, cfg.ScreenHeight),
+		ship:     spaceship.NewBaseShip(cfg),
 		bullets: &object.Bullets{
 			BulletList: make([]*object.Bullet, 0),
 		},

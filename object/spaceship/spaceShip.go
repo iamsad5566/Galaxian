@@ -13,4 +13,6 @@ type SpaceShip interface {
 	GetAxisY() float64
 	GetWidth() int
 	GetHeight() int
+	SetAxisX(x float64)
+	SetAxisY(y float64)
 }
