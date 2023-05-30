@@ -3,7 +3,7 @@ package main
 import (
 	"gamedev/config"
 	"gamedev/keypress"
-	"gamedev/object"
+	"gamedev/object/attack"
 	"gamedev/object/spaceship"
 
 	"github.com/hajimehoshi/ebiten/v2"
@@ -13,7 +13,7 @@ type Game struct {
 	keyPress *keypress.KeyPress
 	config   *config.Config
 	ship     spaceship.SpaceShip
-	bullets  *object.Bullets
+	bullets  *attack.BasicBarrage
 }
 
 func (game *Game) Update() error {
@@ -42,8 +42,6 @@ func NewGame() *Game {
 		keyPress: &keypress.KeyPress{},
 		config:   cfg,
 		ship:     spaceship.NewBaseShip(cfg),
-		bullets: &object.Bullets{
-			BulletList: make([]*object.Bullet, 0),
-		},
+		bullets:  attack.NewBasicBarrage(),
 	}
 }

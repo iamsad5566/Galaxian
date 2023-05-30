@@ -55,9 +55,9 @@ func (BasicBarrage *BasicBarrage) newBullet(ship spaceship.SpaceShip) *bullet {
 	return b
 }
 
-func NewBasicBarrage() BasicBarrage {
+func NewBasicBarrage() *BasicBarrage {
 	basicBarrage := BasicBarrage{
 		Barrage: make([]bullet, 0),
 	}
-	return basicBarrage
+	return &basicBarrage
 }
