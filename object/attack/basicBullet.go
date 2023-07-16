@@ -10,7 +10,7 @@ import (
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 )
 
-const basicBulletPixel string = "./object/bullet.png"
+const basicBulletPixel string = "./object/attack/basicBullet.png"
 
 type BasicBarrage struct {
 	Barrage []bullet
